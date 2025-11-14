@@ -275,11 +275,11 @@ export default function Home() {
 	return (
 		<div className="min-h-screen bg-black text-white overflow-hidden">
 			{/* Navigation */}
-			<nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-2xl bg-black/40 border-b border-white/[0.08]">
+			<nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/[0.06] transition-all duration-500">
 				<div className="container mx-auto px-6 lg:px-12">
-					<div className="flex items-center justify-between h-16">
+					<div className="flex items-center justify-between h-20">
 						<div className="flex items-center gap-3">
-							<div className="relative w-8 h-8 flex items-center justify-center bg-white rounded p-1.5 overflow-hidden">
+							<div className="relative w-9 h-9 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-lg p-1.5 overflow-hidden border border-white/[0.08] transition-all duration-300 hover:bg-white/10 hover:border-white/[0.12]">
 								<Image
 									src="/opened-door-aperture.png"
 									alt="NoirDoor Logo"
@@ -288,49 +288,54 @@ export default function Home() {
 									className="object-contain scale-150"
 								/>
 							</div>
-							<span className="text-lg font-medium tracking-tight text-white">
+							<span className="text-lg font-medium tracking-[-0.01em] text-white">
 								NoirDoor
 							</span>
 						</div>
 
 						{/* Desktop Navigation */}
-						<div className="hidden lg:flex items-center gap-10">
+						<div className="hidden lg:flex items-center gap-8">
 							<a
 								href="#"
-								className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-300"
+								className="text-sm font-normal text-white/50 hover:text-white transition-all duration-300 relative group"
 							>
 								Home
+								<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
 							</a>
 							<a
 								href="#what-we-do"
-								className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-300"
+								className="text-sm font-normal text-white/50 hover:text-white transition-all duration-300 relative group"
 							>
 								What We Do
+								<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
 							</a>
 							<a
 								href="#portfolio"
-								className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-300"
+								className="text-sm font-normal text-white/50 hover:text-white transition-all duration-300 relative group"
 							>
 								Portfolio
+								<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
 							</a>
 							<a
 								href="#philosophy"
-								className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-300"
+								className="text-sm font-normal text-white/50 hover:text-white transition-all duration-300 relative group"
 							>
 								Philosophy
+								<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
 							</a>
 							<a
 								href="#contact"
-								className="text-sm font-normal text-white/60 hover:text-white transition-colors duration-300"
+								className="text-sm font-normal text-white/50 hover:text-white transition-all duration-300 relative group"
 							>
 								Contact
+								<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
 							</a>
 						</div>
 
 						<div className="flex items-center gap-4">
 							<Button
 								variant="outline"
-								className="hidden sm:flex border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-sm font-normal px-6 py-2 h-auto transition-all duration-300"
+								className="hidden sm:flex border-white/15 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-white/80 hover:text-yellow-400 text-sm font-normal px-6 py-2.5 h-auto rounded-full transition-all duration-300 backdrop-blur-sm"
 							>
 								Get Started
 							</Button>
@@ -338,12 +343,12 @@ export default function Home() {
 								onClick={() =>
 									setMobileMenuOpen(!mobileMenuOpen)
 								}
-								className="lg:hidden text-white/60 hover:text-white transition-colors"
+								className="lg:hidden text-white/50 hover:text-white transition-all duration-300 p-2 rounded-lg hover:bg-white/5"
 							>
 								{mobileMenuOpen ? (
-									<X className="w-6 h-6" />
+									<X className="w-5 h-5" />
 								) : (
-									<Menu className="w-6 h-6" />
+									<Menu className="w-5 h-5" />
 								)}
 							</button>
 						</div>
@@ -354,10 +359,10 @@ export default function Home() {
 			{/* Hero Section */}
 			<section
 				ref={heroRef}
-				className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
+				className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
 			>
 				{/* Subtle Background Gradient */}
-				<div className="absolute inset-0 bg-gradient-to-b from-black via-black to-[#0a0a0a]" />
+				<div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-[#0a0a0a]" />
 
 				{/* Abstract Animated Background */}
 				<div
@@ -462,40 +467,40 @@ export default function Home() {
 				<div className="container mx-auto px-6 lg:px-12 relative z-10 text-center">
 					<h1
 						ref={titleRef}
-						className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-semibold mb-8 leading-[1.05] tracking-[-0.02em] max-w-6xl mx-auto"
+						className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-semibold mb-10 leading-[1.02] tracking-[-0.03em] max-w-6xl mx-auto"
 					>
 						<span className="block text-white">
 							We Build the Companies
 						</span>
-						<span className="block mt-3 text-white/90">
+						<span className="block mt-4 text-white/95">
 							Others Are Too Afraid to Start.
 						</span>
 					</h1>
 
 					<p
 						ref={subtitleRef}
-						className="text-xl sm:text-2xl md:text-3xl text-white/50 max-w-3xl mx-auto mb-16 leading-relaxed font-light"
+						className="text-xl sm:text-2xl md:text-3xl text-white/55 max-w-3xl mx-auto mb-20 leading-[1.6] font-light tracking-[-0.01em]"
 					>
 						NoirDoor is a startup studio for founders who refuse to
 						blend in. We turn unconventional ideas into powerful,
-						market-ready ventures,fast.
+						market-ready ventures, fast.
 					</p>
 
 					<div
 						ref={ctaRef}
-						className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+						className="flex flex-col sm:flex-row gap-5 justify-center items-center"
 					>
 						<Button
 							size="lg"
-							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
+							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/10 hover:shadow-yellow-400/20"
 						>
 							Start Building
-							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
 						</Button>
 						<Button
 							size="lg"
 							variant="outline"
-							className="border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
+							className="border-white/15 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-white/90 hover:text-yellow-400 text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
 						>
 							Pitch Your Idea
 						</Button>
@@ -507,14 +512,14 @@ export default function Home() {
 			<section
 				id="what-we-do"
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative"
+				className="py-36 md:py-48 px-6 lg:px-12 relative"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-8 tracking-[-0.03em] text-white">
 							A new kind of startup studio.
 						</h2>
-						<p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto leading-relaxed font-light">
+						<p className="text-xl md:text-2xl text-white/55 max-w-3xl mx-auto leading-[1.7] font-light tracking-[-0.01em]">
 							We don&apos;t just advise, we co-create. NoirDoor
 							blends design, engineering, and strategy into a
 							single force that transforms bold ideas into real
@@ -522,7 +527,7 @@ export default function Home() {
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
 						{[
 							{
 								title: 'Validate ideas with precision',
@@ -550,19 +555,19 @@ export default function Home() {
 							},
 						].map((item, index) => {
 							const colorOverlays = [
-								'rgba(99, 102, 241, 0.05)', // indigo
-								'rgba(236, 72, 153, 0.05)', // pink
-								'rgba(234, 179, 8, 0.08)', // yellow
-								'rgba(251, 146, 60, 0.05)', // orange
-								'rgba(168, 85, 247, 0.05)', // purple
+								'rgba(99, 102, 241, 0.04)', // indigo
+								'rgba(236, 72, 153, 0.04)', // pink
 								'rgba(234, 179, 8, 0.06)', // yellow
+								'rgba(251, 146, 60, 0.04)', // orange
+								'rgba(168, 85, 247, 0.04)', // purple
+								'rgba(234, 179, 8, 0.05)', // yellow
 							];
 							const colorOverlay =
 								colorOverlays[index % colorOverlays.length];
 							return (
 								<div
 									key={index}
-									className={`p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-500 group relative overflow-hidden color-card-${index}`}
+									className={`p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 group relative overflow-hidden backdrop-blur-sm color-card-${index}`}
 								>
 									<div
 										className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -571,8 +576,8 @@ export default function Home() {
 										}}
 									/>
 									<div className="relative z-10">
-										<item.icon className="w-8 h-8 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 mb-6" />
-										<p className="text-lg text-white/80 leading-relaxed font-light">
+										<item.icon className="w-7 h-7 text-white/50 group-hover:text-yellow-400 transition-all duration-300 mb-5" />
+										<p className="text-lg text-white/75 leading-[1.6] font-light tracking-[-0.01em]">
 											{item.title}
 										</p>
 									</div>
@@ -582,7 +587,7 @@ export default function Home() {
 					</div>
 
 					<div className="text-center">
-						<p className="text-2xl text-white/40 font-light">
+						<p className="text-2xl text-white/45 font-light leading-[1.6] tracking-[-0.01em]">
 							If it requires courage, creativity, and sharp
 							execution — that&apos;s our arena.
 						</p>
@@ -594,26 +599,26 @@ export default function Home() {
 			<section
 				id="philosophy"
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative bg-[#0a0a0a]"
+				className="py-36 md:py-48 px-6 lg:px-12 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-8 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-10 tracking-[-0.03em] text-white">
 							Boldness is a skill. We practice it daily.
 						</h2>
-						<p className="text-2xl md:text-3xl text-white/50 max-w-3xl mx-auto leading-relaxed mb-6 font-light">
+						<p className="text-2xl md:text-3xl text-white/55 max-w-3xl mx-auto leading-[1.6] mb-6 font-light tracking-[-0.01em]">
 							Most people build what&apos;s safe.
 						</p>
-						<p className="text-2xl md:text-3xl text-white/50 max-w-3xl mx-auto leading-relaxed mb-12 font-light">
+						<p className="text-2xl md:text-3xl text-white/55 max-w-3xl mx-auto leading-[1.6] mb-12 font-light tracking-[-0.01em]">
 							We build what&apos;s inevitable.
 						</p>
-						<p className="text-xl text-white/40 max-w-2xl mx-auto font-light">
+						<p className="text-xl text-white/45 max-w-2xl mx-auto font-light leading-[1.7] tracking-[-0.01em]">
 							NoirDoor exists for founders who&apos;d rather stand
 							out than fit in.
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
 						{[
 							{
 								title: 'Originality over imitation',
@@ -638,10 +643,10 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
+								className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
 							>
-								<item.icon className="w-8 h-8 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 mb-6" />
-								<p className="text-lg text-white/80 font-light leading-relaxed">
+								<item.icon className="w-7 h-7 text-white/50 group-hover:text-yellow-400 transition-all duration-300 mb-5" />
+								<p className="text-lg text-white/75 font-light leading-[1.6] tracking-[-0.01em]">
 									{item.title}
 								</p>
 							</div>
@@ -649,7 +654,7 @@ export default function Home() {
 					</div>
 
 					<div className="text-center">
-						<p className="text-2xl md:text-3xl text-white/50 font-light">
+						<p className="text-2xl md:text-3xl text-white/50 font-light leading-[1.6] tracking-[-0.01em]">
 							If the world doesn&apos;t get your idea yet,
 							perfect. Let&apos;s build it.
 						</p>
@@ -660,11 +665,11 @@ export default function Home() {
 			{/* What We Build Together Section */}
 			<section
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative"
+				className="py-36 md:py-48 px-6 lg:px-12 relative"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.03em] text-white">
 							From spark to launch, everything under one roof.
 						</h2>
 					</div>
@@ -704,15 +709,15 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
+								className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
 							>
-								<div className="flex items-start gap-4">
-									<item.icon className="w-7 h-7 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 flex-shrink-0 mt-1" />
+								<div className="flex items-start gap-5">
+									<item.icon className="w-7 h-7 text-white/50 group-hover:text-yellow-400 transition-all duration-300 flex-shrink-0 mt-1" />
 									<div>
-										<h3 className="text-2xl font-semibold mb-3 text-white tracking-tight">
+										<h3 className="text-2xl font-semibold mb-3 text-white tracking-[-0.02em]">
 											{item.title}
 										</h3>
-										<p className="text-lg text-white/50 leading-relaxed font-light">
+										<p className="text-lg text-white/55 leading-[1.7] font-light tracking-[-0.01em]">
 											{item.description}
 										</p>
 									</div>
@@ -726,16 +731,16 @@ export default function Home() {
 			{/* Who We Build With Section */}
 			<section
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative bg-[#0a0a0a]"
+				className="py-36 md:py-48 px-6 lg:px-12 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.03em] text-white">
 							Founders who think in neon, not grayscale.
 						</h2>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-20">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-24">
 						{[
 							'Solo founders with gritty ambition',
 							'Creators turning audiences into companies',
@@ -744,10 +749,10 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="flex items-start gap-4 p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:border-yellow-500/20 transition-all duration-300"
+								className="flex items-start gap-4 p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-yellow-500/20 hover:bg-white/[0.025] hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-300 backdrop-blur-sm"
 							>
-								<CheckCircle2 className="w-5 h-5 text-white/40 hover:text-yellow-400 flex-shrink-0 mt-1 transition-colors duration-300" />
-								<p className="text-lg text-white/70 font-light leading-relaxed">
+								<CheckCircle2 className="w-5 h-5 text-white/40 group-hover:text-yellow-400 flex-shrink-0 mt-1 transition-colors duration-300" />
+								<p className="text-lg text-white/70 font-light leading-[1.7] tracking-[-0.01em]">
 									{item}
 								</p>
 							</div>
@@ -755,7 +760,7 @@ export default function Home() {
 					</div>
 
 					<div className="text-center">
-						<p className="text-2xl md:text-3xl text-white/50 font-light">
+						<p className="text-2xl md:text-3xl text-white/50 font-light leading-[1.6] tracking-[-0.01em]">
 							If your idea feels &quot;too much,&quot; &quot;too
 							different,&quot; or &quot;too risky&quot;,
 							<br />
@@ -768,16 +773,16 @@ export default function Home() {
 			{/* The NoirDoor Advantage Section */}
 			<section
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative"
+				className="py-36 md:py-48 px-6 lg:px-12 relative"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.03em] text-white">
 							Why founders choose us
 						</h2>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
 						{[
 							'Creative rebellion baked into process',
 							'Senior-level product & design execution',
@@ -788,9 +793,9 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
+								className="p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
 							>
-								<p className="text-lg text-white/70 font-light leading-relaxed">
+								<p className="text-lg text-white/70 font-light leading-[1.7] tracking-[-0.01em]">
 									{item}
 								</p>
 							</div>
@@ -798,7 +803,7 @@ export default function Home() {
 					</div>
 
 					<div className="text-center">
-						<p className="text-2xl md:text-3xl text-white/50 font-light">
+						<p className="text-2xl md:text-3xl text-white/50 font-light leading-[1.6] tracking-[-0.01em]">
 							We don&apos;t just open doors, we build new ones.
 						</p>
 					</div>
@@ -809,14 +814,14 @@ export default function Home() {
 			<section
 				id="portfolio"
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative bg-[#0a0a0a]"
+				className="py-36 md:py-48 px-6 lg:px-12 relative bg-gradient-to-b from-black via-[#0a0a0a] to-black"
 			>
 				<div className="container mx-auto max-w-6xl">
-					<div className="text-center mb-24">
-						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.02em] text-white">
+					<div className="text-center mb-28">
+						<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-6 tracking-[-0.03em] text-white">
 							Born at NoirDoor
 						</h2>
-						<p className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto font-light">
+						<p className="text-xl md:text-2xl text-white/55 max-w-2xl mx-auto font-light leading-[1.7] tracking-[-0.01em]">
 							A curated selection of ventures forged inside the
 							studio.
 						</p>
@@ -840,12 +845,12 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
+								className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
 							>
-								<h3 className="text-3xl font-semibold mb-3 text-white group-hover:text-yellow-400 transition-colors duration-300 tracking-tight">
+								<h3 className="text-3xl font-semibold mb-3 text-white group-hover:text-yellow-400 transition-colors duration-300 tracking-[-0.02em]">
 									{item.name}
 								</h3>
-								<p className="text-lg text-white/50 leading-relaxed font-light">
+								<p className="text-lg text-white/55 leading-[1.7] font-light tracking-[-0.01em]">
 									{item.description}
 								</p>
 							</div>
@@ -858,30 +863,30 @@ export default function Home() {
 			<section
 				id="contact"
 				ref={addToRefs}
-				className="py-32 md:py-40 px-6 lg:px-12 relative"
+				className="py-36 md:py-48 px-6 lg:px-12 relative"
 			>
 				<div className="container mx-auto max-w-4xl text-center">
-					<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-8 tracking-[-0.02em] text-white">
+					<h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold mb-10 tracking-[-0.03em] text-white">
 						Ready to Build Something Bold?
 					</h2>
-					<p className="text-2xl md:text-3xl text-white/50 mb-4 max-w-2xl mx-auto leading-relaxed font-light">
+					<p className="text-2xl md:text-3xl text-white/55 mb-5 max-w-2xl mx-auto leading-[1.6] font-light tracking-[-0.01em]">
 						The world doesn&apos;t need another safe idea.
 					</p>
-					<p className="text-xl md:text-2xl text-white/40 mb-16 max-w-2xl mx-auto leading-relaxed font-light">
+					<p className="text-xl md:text-2xl text-white/45 mb-20 max-w-2xl mx-auto leading-[1.7] font-light tracking-[-0.01em]">
 						It needs yours, crafted relentlessly.
 					</p>
-					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+					<div className="flex flex-col sm:flex-row gap-5 justify-center">
 						<Button
 							size="lg"
-							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
+							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/10 hover:shadow-yellow-400/20"
 						>
 							Start Your Build
-							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
 						</Button>
 						<Button
 							size="lg"
 							variant="outline"
-							className="border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
+							className="border-white/15 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-white/90 hover:text-yellow-400 text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
 						>
 							Talk to the Studio
 						</Button>
@@ -890,12 +895,12 @@ export default function Home() {
 			</section>
 
 			{/* Footer */}
-			<footer className="py-20 px-6 lg:px-12 border-t border-white/[0.08]">
+			<footer className="py-24 px-6 lg:px-12 border-t border-white/[0.06] bg-black/50 backdrop-blur-sm">
 				<div className="container mx-auto max-w-6xl">
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
 						<div>
 							<div className="flex items-center gap-3 mb-6">
-								<div className="relative w-8 h-8 flex items-center justify-center bg-white rounded p-1.5 overflow-hidden">
+								<div className="relative w-9 h-9 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-lg p-1.5 overflow-hidden border border-white/[0.08]">
 									<Image
 										src="/opened-door-aperture.png"
 										alt="NoirDoor Logo"
@@ -904,11 +909,11 @@ export default function Home() {
 										className="object-contain scale-150"
 									/>
 								</div>
-								<span className="text-lg font-medium text-white">
+								<span className="text-lg font-medium text-white tracking-[-0.01em]">
 									NoirDoor
 								</span>
 							</div>
-							<p className="text-white/40 text-sm font-light leading-relaxed">
+							<p className="text-white/45 text-sm font-light leading-[1.7] tracking-[-0.01em]">
 								NoirDoor — Home for the Bold.
 								<br />A startup studio for founders who refuse
 								ordinary.
@@ -917,13 +922,13 @@ export default function Home() {
 						<div className="flex flex-col gap-4">
 							<a
 								href="#"
-								className="text-white/50 hover:text-white transition-colors duration-300 text-sm font-light"
+								className="text-white/50 hover:text-yellow-400 transition-colors duration-300 text-sm font-light tracking-[-0.01em]"
 							>
 								Support
 							</a>
 							<a
 								href="#"
-								className="text-white/50 hover:text-white transition-colors duration-300 text-sm font-light"
+								className="text-white/50 hover:text-yellow-400 transition-colors duration-300 text-sm font-light tracking-[-0.01em]"
 							>
 								Contact
 							</a>
@@ -931,22 +936,24 @@ export default function Home() {
 						<div className="flex items-center gap-4">
 							<a
 								href="#"
-								className="w-9 h-9 rounded-full bg-white/[0.05] hover:bg-white/[0.1] flex items-center justify-center transition-all duration-300"
+								className="w-10 h-10 rounded-full bg-white/[0.05] hover:bg-yellow-500/10 hover:border-yellow-500/30 border border-white/[0.08] flex items-center justify-center transition-all duration-300"
 							>
-								<span className="text-white/50 text-sm">X</span>
+								<span className="text-white/50 hover:text-yellow-400 text-sm transition-colors duration-300">
+									X
+								</span>
 							</a>
 							<a
 								href="#"
-								className="w-9 h-9 rounded-full bg-white/[0.05] hover:bg-white/[0.1] flex items-center justify-center transition-all duration-300"
+								className="w-10 h-10 rounded-full bg-white/[0.05] hover:bg-yellow-500/10 hover:border-yellow-500/30 border border-white/[0.08] flex items-center justify-center transition-all duration-300"
 							>
-								<span className="text-white/50 text-sm">
+								<span className="text-white/50 hover:text-yellow-400 text-sm transition-colors duration-300">
 									in
 								</span>
 							</a>
 						</div>
 					</div>
-					<div className="pt-8 border-t border-white/[0.08]">
-						<p className="text-white/30 text-xs font-light text-center">
+					<div className="pt-8 border-t border-white/[0.06]">
+						<p className="text-white/35 text-xs font-light text-center tracking-[-0.01em]">
 							© {new Date().getFullYear()} NoirDoor. All rights
 							reserved.
 						</p>
