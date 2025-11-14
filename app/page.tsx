@@ -330,7 +330,7 @@ export default function Home() {
 						<div className="flex items-center gap-4">
 							<Button
 								variant="outline"
-								className="hidden sm:flex border-white/20 hover:bg-white/10 hover:border-white/30 text-white text-sm font-normal px-6 py-2 h-auto transition-all duration-300"
+								className="hidden sm:flex border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-sm font-normal px-6 py-2 h-auto transition-all duration-300"
 							>
 								Get Started
 							</Button>
@@ -366,9 +366,9 @@ export default function Home() {
 				>
 					{/* Floating Gradient Orbs */}
 					<div className="animated-orb absolute top-[20%] left-[10%] w-96 h-96 bg-white/[0.03] rounded-full blur-3xl" />
-					<div className="animated-orb absolute top-[60%] right-[15%] w-80 h-80 bg-white/[0.025] rounded-full blur-3xl" />
+					<div className="animated-orb absolute top-[60%] right-[15%] w-80 h-80 bg-yellow-500/[0.08] rounded-full blur-3xl" />
 					<div className="animated-orb absolute bottom-[20%] left-[30%] w-72 h-72 bg-white/[0.02] rounded-full blur-3xl" />
-					<div className="animated-orb absolute top-[40%] right-[40%] w-64 h-64 bg-white/[0.015] rounded-full blur-3xl" />
+					<div className="animated-orb absolute top-[40%] right-[40%] w-64 h-64 bg-yellow-400/[0.06] rounded-full blur-3xl" />
 
 					{/* Flowing Abstract Lines */}
 					<svg
@@ -378,7 +378,7 @@ export default function Home() {
 					>
 						<path
 							d="M0,1 Q150,0 300,1 T600,1"
-							stroke="rgba(255,255,255,0.3)"
+							stroke="rgba(234, 179, 8, 0.4)"
 							strokeWidth="2"
 							fill="none"
 							vectorEffect="non-scaling-stroke"
@@ -440,10 +440,15 @@ export default function Home() {
 						{[...Array(20)].map((_, i) => {
 							const x = (i % 5) * 25;
 							const y = Math.floor(i / 5) * 20;
+							const isYellow = i % 4 === 0;
 							return (
 								<div
 									key={i}
-									className="grid-point absolute w-1 h-1 bg-white/20 rounded-full"
+									className={`grid-point absolute w-1 h-1 rounded-full ${
+										isYellow
+											? 'bg-yellow-400/30'
+											: 'bg-white/20'
+									}`}
 									style={{
 										left: `${x}%`,
 										top: `${y}%`,
@@ -473,7 +478,7 @@ export default function Home() {
 					>
 						NoirDoor is a startup studio for founders who refuse to
 						blend in. We turn unconventional ideas into powerful,
-						market-ready ventures, fast.
+						market-ready ventures,fast.
 					</p>
 
 					<div
@@ -482,7 +487,7 @@ export default function Home() {
 					>
 						<Button
 							size="lg"
-							className="bg-white text-black hover:bg-white/90 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
+							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
 						>
 							Start Building
 							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -490,7 +495,7 @@ export default function Home() {
 						<Button
 							size="lg"
 							variant="outline"
-							className="border-white/20 hover:bg-white/5 hover:border-white/30 text-white text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
+							className="border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
 						>
 							Pitch Your Idea
 						</Button>
@@ -510,7 +515,7 @@ export default function Home() {
 							A new kind of startup studio.
 						</h2>
 						<p className="text-xl md:text-2xl text-white/50 max-w-3xl mx-auto leading-relaxed font-light">
-							We don&apos;t just advise — we co-create. NoirDoor
+							We don&apos;t just advise, we co-create. NoirDoor
 							blends design, engineering, and strategy into a
 							single force that transforms bold ideas into real
 							companies.
@@ -547,10 +552,10 @@ export default function Home() {
 							const colorOverlays = [
 								'rgba(99, 102, 241, 0.05)', // indigo
 								'rgba(236, 72, 153, 0.05)', // pink
-								'rgba(34, 197, 94, 0.05)', // green
+								'rgba(234, 179, 8, 0.08)', // yellow
 								'rgba(251, 146, 60, 0.05)', // orange
 								'rgba(168, 85, 247, 0.05)', // purple
-								'rgba(59, 130, 246, 0.05)', // blue
+								'rgba(234, 179, 8, 0.06)', // yellow
 							];
 							const colorOverlay =
 								colorOverlays[index % colorOverlays.length];
@@ -566,7 +571,7 @@ export default function Home() {
 										}}
 									/>
 									<div className="relative z-10">
-										<item.icon className="w-8 h-8 text-white/60 group-hover:text-white transition-colors duration-300 mb-6" />
+										<item.icon className="w-8 h-8 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 mb-6" />
 										<p className="text-lg text-white/80 leading-relaxed font-light">
 											{item.title}
 										</p>
@@ -633,9 +638,9 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-500"
+								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
 							>
-								<item.icon className="w-8 h-8 text-white/60 group-hover:text-white transition-colors duration-300 mb-6" />
+								<item.icon className="w-8 h-8 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 mb-6" />
 								<p className="text-lg text-white/80 font-light leading-relaxed">
 									{item.title}
 								</p>
@@ -645,7 +650,7 @@ export default function Home() {
 
 					<div className="text-center">
 						<p className="text-2xl md:text-3xl text-white/50 font-light">
-							If the world doesn&apos;t get your idea yet —
+							If the world doesn&apos;t get your idea yet,
 							perfect. Let&apos;s build it.
 						</p>
 					</div>
@@ -699,10 +704,10 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-500"
+								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
 							>
 								<div className="flex items-start gap-4">
-									<item.icon className="w-7 h-7 text-white/60 group-hover:text-white transition-colors duration-300 flex-shrink-0 mt-1" />
+									<item.icon className="w-7 h-7 text-white/60 group-hover:text-yellow-400 transition-colors duration-300 flex-shrink-0 mt-1" />
 									<div>
 										<h3 className="text-2xl font-semibold mb-3 text-white tracking-tight">
 											{item.title}
@@ -739,9 +744,9 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="flex items-start gap-4 p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08]"
+								className="flex items-start gap-4 p-6 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:border-yellow-500/20 transition-all duration-300"
 							>
-								<CheckCircle2 className="w-5 h-5 text-white/40 flex-shrink-0 mt-1" />
+								<CheckCircle2 className="w-5 h-5 text-white/40 hover:text-yellow-400 flex-shrink-0 mt-1 transition-colors duration-300" />
 								<p className="text-lg text-white/70 font-light leading-relaxed">
 									{item}
 								</p>
@@ -752,7 +757,8 @@ export default function Home() {
 					<div className="text-center">
 						<p className="text-2xl md:text-3xl text-white/50 font-light">
 							If your idea feels &quot;too much,&quot; &quot;too
-							different,&quot; or &quot;too risky&quot; —
+							different,&quot; or &quot;too risky&quot;,
+							<br />
 							you&apos;re exactly who we want.
 						</p>
 					</div>
@@ -782,7 +788,7 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-500"
+								className="p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
 							>
 								<p className="text-lg text-white/70 font-light leading-relaxed">
 									{item}
@@ -793,7 +799,7 @@ export default function Home() {
 
 					<div className="text-center">
 						<p className="text-2xl md:text-3xl text-white/50 font-light">
-							We don&apos;t just open doors — we build new ones.
+							We don&apos;t just open doors, we build new ones.
 						</p>
 					</div>
 				</div>
@@ -834,9 +840,9 @@ export default function Home() {
 						].map((item, index) => (
 							<div
 								key={index}
-								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-500"
+								className="group p-8 rounded-3xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-yellow-500/20 transition-all duration-500"
 							>
-								<h3 className="text-3xl font-semibold mb-3 text-white tracking-tight">
+								<h3 className="text-3xl font-semibold mb-3 text-white group-hover:text-yellow-400 transition-colors duration-300 tracking-tight">
 									{item.name}
 								</h3>
 								<p className="text-lg text-white/50 leading-relaxed font-light">
@@ -862,12 +868,12 @@ export default function Home() {
 						The world doesn&apos;t need another safe idea.
 					</p>
 					<p className="text-xl md:text-2xl text-white/40 mb-16 max-w-2xl mx-auto leading-relaxed font-light">
-						It needs yours — crafted relentlessly.
+						It needs yours, crafted relentlessly.
 					</p>
 					<div className="flex flex-col sm:flex-row gap-4 justify-center">
 						<Button
 							size="lg"
-							className="bg-white text-black hover:bg-white/90 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
+							className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300 hover:scale-105"
 						>
 							Start Your Build
 							<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -875,7 +881,7 @@ export default function Home() {
 						<Button
 							size="lg"
 							variant="outline"
-							className="border-white/20 hover:bg-white/5 hover:border-white/30 text-white text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
+							className="border-white/20 hover:bg-yellow-500/10 hover:border-yellow-500/40 text-white hover:text-yellow-400 text-lg px-8 py-3.5 h-auto font-normal rounded-full transition-all duration-300"
 						>
 							Talk to the Studio
 						</Button>
