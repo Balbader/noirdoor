@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 
 interface Star {
 	x: number;
@@ -11,6 +11,10 @@ interface Star {
 	size: number;
 	opacity: number;
 	brightness: number;
+	targetX: number;
+	targetY: number;
+	velocityX: number;
+	velocityY: number;
 }
 
 export default function Hero() {
@@ -19,11 +23,11 @@ export default function Hero() {
 	const subtitleRef = useRef<HTMLParagraphElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-	const smoothedMousePosRef = useRef({ x: 0, y: 0 });
-	const targetMousePosRef = useRef({ x: 0, y: 0 });
+	const scrollIconRef = useRef<HTMLDivElement>(null);
+	const scrollChevronRef = useRef<SVGSVGElement>(null);
 	const starsRef = useRef<Star[]>([]);
 	const animationFrameRef = useRef<number | undefined>(undefined);
+	const gsapContextRef = useRef<gsap.Context | null>(null);
 
 	// Initialize constellation
 	useEffect(() => {
@@ -41,79 +45,152 @@ export default function Hero() {
 		resizeCanvas();
 		window.addEventListener('resize', resizeCanvas);
 
-		// Generate stars
+		// Generate stars with initial positions and targets
 		const numStars = 150;
 		const stars: Star[] = [];
 		for (let i = 0; i < numStars; i++) {
+			const x = Math.random() * canvas.width;
+			const y = Math.random() * canvas.height;
 			stars.push({
-				x: Math.random() * canvas.width,
-				y: Math.random() * canvas.height,
+				x,
+				y,
 				size: Math.random() * 2 + 0.5,
 				opacity: Math.random() * 0.5 + 0.3,
 				brightness: Math.random(),
+				targetX: x,
+				targetY: y,
+				velocityX: 0,
+				velocityY: 0,
 			});
 		}
 		starsRef.current = stars;
 
-		// Draw constellation
+		// Function to create ongoing movement for a star
+		const createOngoingMovement = (star: Star, index: number) => {
+			const movementRange = 0.3; // 30% of canvas size for more dynamic movement
+			const baseDuration = 8 + Math.random() * 12; // 8-20 seconds (faster)
+			const delay = index * 0.1;
+
+			// Function to animate to a new random position
+			const animateToNewPosition = () => {
+				// Calculate new target position within bounds
+				const newTargetX = Math.max(
+					50,
+					Math.min(
+						canvas.width - 50,
+						star.x +
+							(Math.random() - 0.5) *
+								canvas.width *
+								movementRange,
+					),
+				);
+				const newTargetY = Math.max(
+					50,
+					Math.min(
+						canvas.height - 50,
+						star.y +
+							(Math.random() - 0.5) *
+								canvas.height *
+								movementRange,
+					),
+				);
+
+				// Animate X and Y independently with different durations for organic flow
+				const xDuration = baseDuration * (0.9 + Math.random() * 0.2);
+				const yDuration = baseDuration * (0.9 + Math.random() * 0.2);
+
+				gsap.to(star, {
+					targetX: newTargetX,
+					duration: xDuration,
+					ease: 'sine.inOut',
+					onComplete: animateToNewPosition, // Continuously create new animations
+				});
+
+				gsap.to(star, {
+					targetY: newTargetY,
+					duration: yDuration,
+					ease: 'sine.inOut',
+					delay: delay * 0.5,
+				});
+			};
+
+			// Start the ongoing movement
+			animateToNewPosition();
+		};
+
+		// GSAP Context for animations
+		gsapContextRef.current = gsap.context(() => {
+			// Animate stars with ongoing, continuous movement
+			stars.forEach((star, index) => {
+				const delay = index * 0.08;
+
+				// Create ongoing position movement
+				createOngoingMovement(star, index);
+
+				// Elegant twinkling with smooth opacity transitions (ongoing)
+				gsap.to(star, {
+					opacity: star.opacity + 0.3,
+					duration: 1 + Math.random() * 1, // 1-2 seconds (faster)
+					ease: 'power2.inOut',
+					delay: delay * 0.6,
+					repeat: -1,
+					yoyo: true,
+				});
+
+				// Subtle, breathing-like size pulsing (ongoing)
+				gsap.to(star, {
+					size: star.size + 0.3,
+					duration: 1.5 + Math.random() * 1.5, // 1.5-3 seconds (faster)
+					ease: 'power1.inOut',
+					delay: delay * 0.8,
+					repeat: -1,
+					yoyo: true,
+				});
+			});
+		});
+
+		// Draw constellation with smooth interpolation
 		const draw = () => {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-			// Smoothly interpolate mouse position (slow interaction)
-			const smoothingFactor = 0.05; // Lower = slower (0.05 = very slow)
-			smoothedMousePosRef.current.x +=
-				(targetMousePosRef.current.x - smoothedMousePosRef.current.x) *
-				smoothingFactor;
-			smoothedMousePosRef.current.y +=
-				(targetMousePosRef.current.y - smoothedMousePosRef.current.y) *
-				smoothingFactor;
-
-			const smoothedMouse = smoothedMousePosRef.current;
-
-			// Update star twinkling
+			// Smooth interpolation towards target positions
 			stars.forEach((star) => {
-				star.brightness += 0.02;
-				star.opacity = 0.3 + Math.sin(star.brightness) * 0.3;
-			});
+				// Smooth position interpolation
+				const smoothing = 0.03;
+				star.x += (star.targetX - star.x) * smoothing;
+				star.y += (star.targetY - star.y) * smoothing;
 
-			// Draw stars first
-			stars.forEach((star) => {
-				// Calculate distance from smoothed mouse position
-				const dx = star.x - smoothedMouse.x;
-				const dy = star.y - smoothedMouse.y;
-				const distance = Math.sqrt(dx * dx + dy * dy);
-				// Increased interaction distance for slower, more gradual effect
-				const mouseInfluence = Math.max(0, 1 - distance / 600);
-
-				// Enhanced brightness near mouse (reduced for slower effect)
-				const finalOpacity = Math.min(
-					1,
-					star.opacity + mouseInfluence * 0.25,
+				// Update twinkling
+				star.brightness += 0.015;
+				const twinkle = Math.sin(star.brightness) * 0.1;
+				const finalOpacity = Math.max(
+					0.2,
+					Math.min(1, star.opacity + twinkle),
 				);
-				const finalSize = star.size + mouseInfluence * 0.8;
+				const finalSize = star.size;
 
-				// Draw star glow
+				// Draw star glow with gradient
 				const gradient = ctx.createRadialGradient(
 					star.x,
 					star.y,
 					0,
 					star.x,
 					star.y,
-					finalSize * 3,
+					finalSize * 4,
 				);
 				gradient.addColorStop(
 					0,
 					`rgba(107, 114, 128, ${finalOpacity})`,
 				);
 				gradient.addColorStop(
-					0.5,
-					`rgba(107, 114, 128, ${finalOpacity * 0.3})`,
+					0.4,
+					`rgba(107, 114, 128, ${finalOpacity * 0.4})`,
 				);
 				gradient.addColorStop(1, 'rgba(107, 114, 128, 0)');
 
 				ctx.fillStyle = gradient;
 				ctx.beginPath();
-				ctx.arc(star.x, star.y, finalSize * 3, 0, Math.PI * 2);
+				ctx.arc(star.x, star.y, finalSize * 4, 0, Math.PI * 2);
 				ctx.fill();
 
 				// Draw star core
@@ -123,7 +200,7 @@ export default function Hero() {
 				ctx.fill();
 			});
 
-			// Draw connections between nearby stars with mouse interaction
+			// Draw connections between nearby stars
 			const maxDistance = 200;
 			stars.forEach((star1, i) => {
 				stars.slice(i + 1).forEach((star2) => {
@@ -132,34 +209,10 @@ export default function Hero() {
 					const distance = Math.sqrt(dx * dx + dy * dy);
 
 					if (distance < maxDistance) {
-						// Check if smoothed mouse is near the line
-						const lineLength = distance;
-						const t = Math.max(
-							0,
-							Math.min(
-								1,
-								((smoothedMouse.x - star1.x) * dx +
-									(smoothedMouse.y - star1.y) * dy) /
-									(lineLength * lineLength),
-							),
-						);
-						const closestX = star1.x + t * dx;
-						const closestY = star1.y + t * dy;
-						const distToMouse = Math.sqrt(
-							Math.pow(smoothedMouse.x - closestX, 2) +
-								Math.pow(smoothedMouse.y - closestY, 2),
-						);
-						// Increased distance for slower, more gradual effect
-						const mouseInfluence = Math.max(
-							0,
-							1 - distToMouse / 400,
-						);
-
-						const opacity =
-							(1 - distance / maxDistance) * 0.15 +
-							mouseInfluence * 0.12;
+						// Fade based on distance with smooth gradient
+						const opacity = (1 - distance / maxDistance) * 0.2;
 						ctx.strokeStyle = `rgba(107, 114, 128, ${opacity})`;
-						ctx.lineWidth = 0.5 + mouseInfluence * 0.5;
+						ctx.lineWidth = 0.5;
 						ctx.beginPath();
 						ctx.moveTo(star1.x, star1.y);
 						ctx.lineTo(star2.x, star2.y);
@@ -178,20 +231,10 @@ export default function Hero() {
 			if (animationFrameRef.current) {
 				cancelAnimationFrame(animationFrameRef.current);
 			}
+			if (gsapContextRef.current) {
+				gsapContextRef.current.revert();
+			}
 		};
-	}, [mousePos]);
-
-	// Mouse tracking with slow update
-	useEffect(() => {
-		const handleMouseMove = (e: MouseEvent) => {
-			// Update target position (actual mouse position)
-			targetMousePosRef.current = { x: e.clientX, y: e.clientY };
-			// Keep state for dependency (but use refs for smooth interpolation)
-			setMousePos({ x: e.clientX, y: e.clientY });
-		};
-
-		window.addEventListener('mousemove', handleMouseMove);
-		return () => window.removeEventListener('mousemove', handleMouseMove);
 	}, []);
 
 	useEffect(() => {
@@ -258,6 +301,17 @@ export default function Hero() {
 							end: 'bottom top',
 							scrub: 1,
 						},
+					});
+				}
+
+				// Animate scroll down icon with smooth bounce
+				if (scrollChevronRef.current) {
+					gsap.to(scrollChevronRef.current, {
+						y: 8,
+						duration: 1.2,
+						ease: 'power2.inOut',
+						repeat: -1,
+						yoyo: true,
 					});
 				}
 			});
@@ -328,6 +382,20 @@ export default function Hero() {
 						Pitch Your Idea
 					</Button>
 				</div> */}
+			</div>
+
+			{/* Scroll Down Indicator */}
+			<div
+				ref={scrollIconRef}
+				className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer group"
+			>
+				<span className="text-xs text-gray-500 font-light tracking-wider uppercase group-hover:text-gray-700 transition-colors duration-300">
+					Scroll
+				</span>
+				<ChevronDown
+					ref={scrollChevronRef}
+					className="w-6 h-6 text-gray-400 group-hover:text-gray-600 transition-colors duration-300"
+				/>
 			</div>
 		</section>
 	);
