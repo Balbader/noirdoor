@@ -55,9 +55,9 @@ export default function Philosophy({ addToRefs }: PhilosophyProps) {
 					].map((item, index) => (
 						<div
 							key={index}
-							className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
+							className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 transition-all duration-500 backdrop-blur-sm"
 						>
-							<item.icon className="w-7 h-7 text-white/50 group-hover:text-yellow-400 transition-all duration-300 mb-5" />
+							<item.icon className="w-7 h-7 text-white/50 group-hover:text-white transition-all duration-300 mb-5" />
 							<p className="text-lg text-white/75 font-light leading-[1.6] tracking-[-0.01em]">
 								{item.title}
 							</p>

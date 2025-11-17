@@ -30,7 +30,7 @@ export default function NoirDoorAdvantage({
 					].map((item, index) => (
 						<div
 							key={index}
-							className="p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
+							className="p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 transition-all duration-500 backdrop-blur-sm"
 						>
 							<p className="text-lg text-white/70 font-light leading-[1.7] tracking-[-0.01em]">
 								{item}

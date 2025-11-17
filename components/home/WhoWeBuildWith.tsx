@@ -28,9 +28,9 @@ export default function WhoWeBuildWith({ addToRefs }: WhoWeBuildWithProps) {
 					].map((item, index) => (
 						<div
 							key={index}
-							className="flex items-start gap-4 p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-yellow-500/20 hover:bg-white/[0.025] hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-300 backdrop-blur-sm"
+							className="flex items-start gap-4 p-7 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:border-white/20 hover:bg-white/[0.025] hover:shadow-lg hover:shadow-white/5 transition-all duration-300 backdrop-blur-sm"
 						>
-							<CheckCircle2 className="w-5 h-5 text-white/40 group-hover:text-yellow-400 flex-shrink-0 mt-1 transition-colors duration-300" />
+							<CheckCircle2 className="w-5 h-5 text-white/40 group-hover:text-white flex-shrink-0 mt-1 transition-colors duration-300" />
 							<p className="text-lg text-white/70 font-light leading-[1.7] tracking-[-0.01em]">
 								{item}
 							</p>

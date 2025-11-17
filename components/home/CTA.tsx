@@ -27,7 +27,7 @@ export default function CTA({ addToRefs }: CTAProps) {
 				<div className="flex flex-col sm:flex-row gap-5 justify-center">
 					<Button
 						size="lg"
-						className="bg-white text-black hover:bg-yellow-400 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/10 hover:shadow-yellow-400/20"
+						className="bg-white text-black hover:bg-gray-100 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/10 hover:shadow-gray-200/20"
 					>
 						Start Your Build
 						<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -35,7 +35,7 @@ export default function CTA({ addToRefs }: CTAProps) {
 					<Button
 						size="lg"
 						variant="outline"
-						className="border-white/15 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-white/90 hover:text-yellow-400 text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
+						className="border-white/15 hover:bg-white/10 hover:border-white/30 text-white/90 hover:text-white text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
 					>
 						Talk to the Studio
 					</Button>

@@ -62,17 +62,17 @@ export default function WhatWeDo({ addToRefs }: WhatWeDoProps) {
 						const colorOverlays = [
 							'rgba(99, 102, 241, 0.04)', // indigo
 							'rgba(236, 72, 153, 0.04)', // pink
-							'rgba(234, 179, 8, 0.06)', // yellow
+							'rgba(59, 130, 246, 0.04)', // blue
 							'rgba(251, 146, 60, 0.04)', // orange
 							'rgba(168, 85, 247, 0.04)', // purple
-							'rgba(234, 179, 8, 0.05)', // yellow
+							'rgba(139, 92, 246, 0.04)', // purple
 						];
 						const colorOverlay =
 							colorOverlays[index % colorOverlays.length];
 						return (
 							<div
 								key={index}
-								className={`p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 group relative overflow-hidden backdrop-blur-sm color-card-${index}`}
+								className={`p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 transition-all duration-500 group relative overflow-hidden backdrop-blur-sm color-card-${index}`}
 							>
 								<div
 									className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -81,7 +81,7 @@ export default function WhatWeDo({ addToRefs }: WhatWeDoProps) {
 									}}
 								/>
 								<div className="relative z-10">
-									<item.icon className="w-7 h-7 text-white/50 group-hover:text-yellow-400 transition-all duration-300 mb-5" />
+									<item.icon className="w-7 h-7 text-white/50 group-hover:text-white transition-all duration-300 mb-5" />
 									<p className="text-lg text-white/75 leading-[1.6] font-light tracking-[-0.01em]">
 										{item.title}
 									</p>

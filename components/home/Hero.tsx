@@ -266,7 +266,7 @@ export default function Hero() {
 							{ start: [59, 130, 246], end: [96, 165, 250] }, // Bright blue
 							{ start: [236, 72, 153], end: [251, 146, 200] }, // Bright pink
 							{ start: [34, 197, 94], end: [134, 239, 172] }, // Bright green
-							{ start: [234, 179, 8], end: [250, 204, 21] }, // Bright yellow
+							{ start: [168, 85, 247], end: [192, 132, 252] }, // Vibrant violet
 							{ start: [249, 115, 22], end: [251, 146, 60] }, // Bright orange
 							{ start: [168, 85, 247], end: [192, 132, 252] }, // Vibrant violet
 							{ start: [14, 165, 233], end: [125, 211, 252] }, // Bright cyan
@@ -274,7 +274,7 @@ export default function Hero() {
 							{ start: [20, 184, 166], end: [94, 234, 212] }, // Bright teal
 							{ start: [147, 51, 234], end: [196, 181, 253] }, // Deep purple
 							{ start: [217, 70, 239], end: [240, 171, 252] }, // Bright magenta
-							{ start: [251, 191, 36], end: [253, 224, 71] }, // Golden yellow
+							{ start: [139, 92, 246], end: [167, 139, 250] }, // Vibrant purple
 							{ start: [6, 182, 212], end: [103, 232, 249] }, // Sky blue
 							{ start: [190, 24, 93], end: [244, 114, 182] }, // Rose pink
 							{ start: [5, 150, 105], end: [52, 211, 153] }, // Emerald green
@@ -284,7 +284,7 @@ export default function Hero() {
 							// Rainbow colors
 							{ start: [255, 0, 0], end: [255, 100, 100] }, // Pure red
 							{ start: [255, 127, 0], end: [255, 180, 100] }, // Pure orange
-							{ start: [255, 255, 0], end: [255, 255, 150] }, // Pure yellow
+							{ start: [99, 102, 241], end: [129, 140, 248] }, // Bright indigo
 							{ start: [0, 255, 0], end: [100, 255, 100] }, // Pure green
 							{ start: [0, 0, 255], end: [100, 100, 255] }, // Pure blue
 							{ start: [75, 0, 130], end: [150, 100, 200] }, // Indigo
@@ -508,7 +508,7 @@ export default function Hero() {
 				>
 					<Button
 						size="lg"
-						className="bg-black text-white hover:bg-yellow-400 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-black/10 hover:shadow-yellow-400/20"
+						className="bg-black text-white hover:bg-gray-800 hover:text-white text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-black/10 hover:shadow-gray-800/20"
 					>
 						Start Building
 						<ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
@@ -516,7 +516,7 @@ export default function Hero() {
 					<Button
 						size="lg"
 						variant="outline"
-						className="border-gray-300 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-gray-700 hover:text-yellow-600 text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
+						className="border-gray-300 hover:bg-gray-100 hover:border-gray-400 text-gray-700 hover:text-black text-lg px-10 py-4 h-auto font-medium rounded-full transition-all duration-300 backdrop-blur-sm"
 					>
 						Pitch Your Idea
 					</Button>

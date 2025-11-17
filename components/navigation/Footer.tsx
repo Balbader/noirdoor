@@ -45,17 +45,17 @@ export default function Footer() {
 					<div className="flex items-center gap-4">
 						<a
 							href="#"
-							className="w-10 h-10 rounded-full bg-gray-100 hover:bg-yellow-500/10 hover:border-yellow-500/30 border border-gray-200 flex items-center justify-center transition-all duration-300"
+							className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 hover:border-gray-300 border border-gray-200 flex items-center justify-center transition-all duration-300"
 						>
-							<span className="text-gray-600 hover:text-yellow-600 text-sm transition-colors duration-300">
+							<span className="text-gray-600 hover:text-black text-sm transition-colors duration-300">
 								X
 							</span>
 						</a>
 						<a
 							href="#"
-							className="w-10 h-10 rounded-full bg-gray-100 hover:bg-yellow-500/10 hover:border-yellow-500/30 border border-gray-200 flex items-center justify-center transition-all duration-300"
+							className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 hover:border-gray-300 border border-gray-200 flex items-center justify-center transition-all duration-300"
 						>
-							<span className="text-gray-600 hover:text-yellow-600 text-sm transition-colors duration-300">
+							<span className="text-gray-600 hover:text-black text-sm transition-colors duration-300">
 								in
 							</span>
 						</a>

@@ -39,9 +39,9 @@ export default function Portfolio({ addToRefs }: PortfolioProps) {
 					].map((item, index) => (
 						<div
 							key={index}
-							className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-yellow-500/20 hover:shadow-lg hover:shadow-yellow-500/5 transition-all duration-500 backdrop-blur-sm"
+							className="group p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] hover:bg-white/[0.03] hover:border-white/20 hover:shadow-lg hover:shadow-white/5 transition-all duration-500 backdrop-blur-sm"
 						>
-							<h3 className="text-3xl font-semibold mb-3 text-white group-hover:text-yellow-400 transition-colors duration-300 tracking-[-0.02em]">
+							<h3 className="text-3xl font-semibold mb-3 text-white group-hover:text-white transition-colors duration-300 tracking-[-0.02em]">
 								{item.name}
 							</h3>
 							<p className="text-lg text-white/55 leading-[1.7] font-light tracking-[-0.01em]">

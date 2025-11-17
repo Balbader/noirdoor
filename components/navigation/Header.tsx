@@ -34,42 +34,42 @@ export default function Header() {
 							className="text-sm font-normal text-gray-600 hover:text-black transition-all duration-300 relative group"
 						>
 							Home
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
 						</a>
 						<a
 							href="#what-we-do"
 							className="text-sm font-normal text-gray-600 hover:text-black transition-all duration-300 relative group"
 						>
 							What We Do
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
 						</a>
 						<a
 							href="#portfolio"
 							className="text-sm font-normal text-gray-600 hover:text-black transition-all duration-300 relative group"
 						>
 							Portfolio
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
 						</a>
 						<a
 							href="#philosophy"
 							className="text-sm font-normal text-gray-600 hover:text-black transition-all duration-300 relative group"
 						>
 							Philosophy
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
 						</a>
 						<a
 							href="#contact"
 							className="text-sm font-normal text-gray-600 hover:text-black transition-all duration-300 relative group"
 						>
 							Contact
-							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-yellow-400 transition-all duration-300 group-hover:w-full" />
+							<span className="absolute bottom-0 left-0 w-0 h-[1px] bg-black transition-all duration-300 group-hover:w-full" />
 						</a>
 					</div>
 
 					<div className="flex items-center gap-4">
 						<Button
 							variant="outline"
-							className="hidden sm:flex border-gray-300 hover:bg-yellow-500/10 hover:border-yellow-500/30 text-gray-700 hover:text-yellow-600 text-sm font-normal px-6 py-2.5 h-auto rounded-full transition-all duration-300 backdrop-blur-sm"
+							className="hidden sm:flex border-gray-300 hover:bg-gray-100 hover:border-gray-400 text-gray-700 hover:text-black text-sm font-normal px-6 py-2.5 h-auto rounded-full transition-all duration-300 backdrop-blur-sm"
 						>
 							Get Started
 						</Button>
