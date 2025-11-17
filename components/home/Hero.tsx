@@ -259,10 +259,71 @@ export default function Hero() {
 							lineWidth += influence * 0.8;
 						}
 
-						ctx.strokeStyle = `rgba(107, 114, 128, ${Math.min(
-							0.6,
-							opacity,
-						)})`;
+						// Create multicolor gradient with bright, vibrant colors including rainbow
+						const colorVariations = [
+							{ start: [99, 102, 241], end: [129, 140, 248] }, // Bright indigo
+							{ start: [139, 92, 246], end: [167, 139, 250] }, // Vibrant purple
+							{ start: [59, 130, 246], end: [96, 165, 250] }, // Bright blue
+							{ start: [236, 72, 153], end: [251, 146, 200] }, // Bright pink
+							{ start: [34, 197, 94], end: [134, 239, 172] }, // Bright green
+							{ start: [234, 179, 8], end: [250, 204, 21] }, // Bright yellow
+							{ start: [249, 115, 22], end: [251, 146, 60] }, // Bright orange
+							{ start: [168, 85, 247], end: [192, 132, 252] }, // Vibrant violet
+							{ start: [14, 165, 233], end: [125, 211, 252] }, // Bright cyan
+							{ start: [239, 68, 68], end: [248, 113, 113] }, // Bright red
+							{ start: [20, 184, 166], end: [94, 234, 212] }, // Bright teal
+							{ start: [147, 51, 234], end: [196, 181, 253] }, // Deep purple
+							{ start: [217, 70, 239], end: [240, 171, 252] }, // Bright magenta
+							{ start: [251, 191, 36], end: [253, 224, 71] }, // Golden yellow
+							{ start: [6, 182, 212], end: [103, 232, 249] }, // Sky blue
+							{ start: [190, 24, 93], end: [244, 114, 182] }, // Rose pink
+							{ start: [5, 150, 105], end: [52, 211, 153] }, // Emerald green
+							{ start: [124, 58, 237], end: [167, 139, 250] }, // Royal purple
+							{ start: [225, 29, 72], end: [248, 113, 113] }, // Coral red
+							{ start: [37, 99, 235], end: [96, 165, 250] }, // Electric blue
+							// Rainbow colors
+							{ start: [255, 0, 0], end: [255, 100, 100] }, // Pure red
+							{ start: [255, 127, 0], end: [255, 180, 100] }, // Pure orange
+							{ start: [255, 255, 0], end: [255, 255, 150] }, // Pure yellow
+							{ start: [0, 255, 0], end: [100, 255, 100] }, // Pure green
+							{ start: [0, 0, 255], end: [100, 100, 255] }, // Pure blue
+							{ start: [75, 0, 130], end: [150, 100, 200] }, // Indigo
+							{ start: [148, 0, 211], end: [200, 100, 255] }, // Violet
+							{ start: [255, 20, 147], end: [255, 150, 200] }, // Deep pink
+							{ start: [0, 191, 255], end: [100, 220, 255] }, // Deep sky blue
+							{ start: [50, 205, 50], end: [150, 255, 150] }, // Lime green
+						];
+
+						// Select color variation based on star indices for variety
+						const colorIndex =
+							(i + (i + 1)) % colorVariations.length;
+						const colors = colorVariations[colorIndex];
+
+						// Create linear gradient along the line
+						const gradient = ctx.createLinearGradient(
+							star1.x,
+							star1.y,
+							star2.x,
+							star2.y,
+						);
+
+						const finalOpacity = Math.min(0.6, opacity);
+						gradient.addColorStop(
+							0,
+							`rgba(${colors.start[0]}, ${colors.start[1]}, ${colors.start[2]}, ${finalOpacity})`,
+						);
+						gradient.addColorStop(
+							0.5,
+							`rgba(${colors.end[0]}, ${colors.end[1]}, ${
+								colors.end[2]
+							}, ${finalOpacity * 0.8})`,
+						);
+						gradient.addColorStop(
+							1,
+							`rgba(${colors.start[0]}, ${colors.start[1]}, ${colors.start[2]}, ${finalOpacity})`,
+						);
+
+						ctx.strokeStyle = gradient;
 						ctx.lineWidth = lineWidth;
 						ctx.beginPath();
 						ctx.moveTo(star1.x, star1.y);
