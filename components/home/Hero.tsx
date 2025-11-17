@@ -25,6 +25,7 @@ export default function Hero() {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const scrollIconRef = useRef<HTMLDivElement>(null);
 	const scrollChevronRef = useRef<SVGSVGElement>(null);
+	const mousePosRef = useRef({ x: -1000, y: -1000 }); // Start off-screen
 	const starsRef = useRef<Star[]>([]);
 	const animationFrameRef = useRef<number | undefined>(undefined);
 	const gsapContextRef = useRef<gsap.Context | null>(null);
@@ -202,6 +203,9 @@ export default function Hero() {
 
 			// Draw connections between nearby stars
 			const maxDistance = 200;
+			const mouse = mousePosRef.current;
+			const mouseInteractionRadius = 250; // Radius around mouse for interaction
+
 			stars.forEach((star1, i) => {
 				stars.slice(i + 1).forEach((star2) => {
 					const dx = star1.x - star2.x;
@@ -209,10 +213,57 @@ export default function Hero() {
 					const distance = Math.sqrt(dx * dx + dy * dy);
 
 					if (distance < maxDistance) {
-						// Fade based on distance with smooth gradient
-						const opacity = (1 - distance / maxDistance) * 0.2;
-						ctx.strokeStyle = `rgba(107, 114, 128, ${opacity})`;
-						ctx.lineWidth = 0.5;
+						// Base opacity
+						let opacity = (1 - distance / maxDistance) * 0.2;
+						let lineWidth = 0.5;
+
+						// Check if mouse is near either star or the line
+						const distToStar1 = Math.sqrt(
+							Math.pow(mouse.x - star1.x, 2) +
+								Math.pow(mouse.y - star1.y, 2),
+						);
+						const distToStar2 = Math.sqrt(
+							Math.pow(mouse.x - star2.x, 2) +
+								Math.pow(mouse.y - star2.y, 2),
+						);
+
+						// Calculate distance from mouse to line segment
+						const lineLength = distance;
+						const t = Math.max(
+							0,
+							Math.min(
+								1,
+								((mouse.x - star1.x) * dx +
+									(mouse.y - star1.y) * dy) /
+									(lineLength * lineLength),
+							),
+						);
+						const closestX = star1.x + t * dx;
+						const closestY = star1.y + t * dy;
+						const distToLine = Math.sqrt(
+							Math.pow(mouse.x - closestX, 2) +
+								Math.pow(mouse.y - closestY, 2),
+						);
+
+						// Mouse interaction enhancement
+						const minDist = Math.min(
+							distToStar1,
+							distToStar2,
+							distToLine,
+						);
+						if (minDist < mouseInteractionRadius) {
+							const influence =
+								1 - minDist / mouseInteractionRadius;
+							// Enhance connection when mouse is near
+							opacity += influence * 0.3;
+							lineWidth += influence * 0.8;
+						}
+
+						ctx.strokeStyle = `rgba(107, 114, 128, ${Math.min(
+							0.6,
+							opacity,
+						)})`;
+						ctx.lineWidth = lineWidth;
 						ctx.beginPath();
 						ctx.moveTo(star1.x, star1.y);
 						ctx.lineTo(star2.x, star2.y);
@@ -233,6 +284,33 @@ export default function Hero() {
 			}
 			if (gsapContextRef.current) {
 				gsapContextRef.current.revert();
+			}
+		};
+	}, []);
+
+	// Mouse tracking for hover interaction
+	useEffect(() => {
+		const handleMouseMove = (e: MouseEvent) => {
+			mousePosRef.current = { x: e.clientX, y: e.clientY };
+		};
+
+		const handleMouseLeave = () => {
+			// Move mouse off-screen when leaving the section
+			mousePosRef.current = { x: -1000, y: -1000 };
+		};
+
+		window.addEventListener('mousemove', handleMouseMove);
+		if (heroRef.current) {
+			heroRef.current.addEventListener('mouseleave', handleMouseLeave);
+		}
+
+		return () => {
+			window.removeEventListener('mousemove', handleMouseMove);
+			if (heroRef.current) {
+				heroRef.current.removeEventListener(
+					'mouseleave',
+					handleMouseLeave,
+				);
 			}
 		};
 	}, []);
