@@ -526,6 +526,12 @@ export default function Hero() {
 			{/* Scroll Down Indicator */}
 			<div
 				ref={scrollIconRef}
+				onClick={() => {
+					window.scrollTo({
+						top: window.innerHeight,
+						behavior: 'smooth',
+					});
+				}}
 				className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer group"
 			>
 				<span className="text-xs text-gray-500 font-light tracking-wider uppercase group-hover:text-gray-700 transition-colors duration-300">
