@@ -10,7 +10,7 @@ export default function Header() {
 
 	return (
 		<nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white border-b border-gray-200 transition-all duration-500">
-			<div className="container mx-auto px-6 lg:px-12">
+			<div className="container mx-auto max-w-6xl px-6 lg:px-12">
 				<div className="flex items-center justify-between h-20">
 					<div className="flex items-center gap-3">
 						<div className="relative w-9 h-9 flex items-center justify-center bg-white backdrop-blur-sm rounded-lg p-1.5 overflow-hidden border border-gray-200 transition-all duration-300 hover:border-gray-300">
