@@ -1,16 +1,198 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+
+interface Star {
+	x: number;
+	y: number;
+	size: number;
+	opacity: number;
+	brightness: number;
+}
 
 export default function Hero() {
 	const heroRef = useRef<HTMLDivElement>(null);
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const subtitleRef = useRef<HTMLParagraphElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
-	const backgroundAnimationRef = useRef<HTMLDivElement>(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+	const smoothedMousePosRef = useRef({ x: 0, y: 0 });
+	const targetMousePosRef = useRef({ x: 0, y: 0 });
+	const starsRef = useRef<Star[]>([]);
+	const animationFrameRef = useRef<number | undefined>(undefined);
+
+	// Initialize constellation
+	useEffect(() => {
+		if (!canvasRef.current) return;
+
+		const canvas = canvasRef.current;
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+
+		const resizeCanvas = () => {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		};
+
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+
+		// Generate stars
+		const numStars = 150;
+		const stars: Star[] = [];
+		for (let i = 0; i < numStars; i++) {
+			stars.push({
+				x: Math.random() * canvas.width,
+				y: Math.random() * canvas.height,
+				size: Math.random() * 2 + 0.5,
+				opacity: Math.random() * 0.5 + 0.3,
+				brightness: Math.random(),
+			});
+		}
+		starsRef.current = stars;
+
+		// Draw constellation
+		const draw = () => {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Smoothly interpolate mouse position (slow interaction)
+			const smoothingFactor = 0.05; // Lower = slower (0.05 = very slow)
+			smoothedMousePosRef.current.x +=
+				(targetMousePosRef.current.x - smoothedMousePosRef.current.x) *
+				smoothingFactor;
+			smoothedMousePosRef.current.y +=
+				(targetMousePosRef.current.y - smoothedMousePosRef.current.y) *
+				smoothingFactor;
+
+			const smoothedMouse = smoothedMousePosRef.current;
+
+			// Update star twinkling
+			stars.forEach((star) => {
+				star.brightness += 0.02;
+				star.opacity = 0.3 + Math.sin(star.brightness) * 0.3;
+			});
+
+			// Draw stars first
+			stars.forEach((star) => {
+				// Calculate distance from smoothed mouse position
+				const dx = star.x - smoothedMouse.x;
+				const dy = star.y - smoothedMouse.y;
+				const distance = Math.sqrt(dx * dx + dy * dy);
+				// Increased interaction distance for slower, more gradual effect
+				const mouseInfluence = Math.max(0, 1 - distance / 600);
+
+				// Enhanced brightness near mouse (reduced for slower effect)
+				const finalOpacity = Math.min(
+					1,
+					star.opacity + mouseInfluence * 0.25,
+				);
+				const finalSize = star.size + mouseInfluence * 0.8;
+
+				// Draw star glow
+				const gradient = ctx.createRadialGradient(
+					star.x,
+					star.y,
+					0,
+					star.x,
+					star.y,
+					finalSize * 3,
+				);
+				gradient.addColorStop(
+					0,
+					`rgba(107, 114, 128, ${finalOpacity})`,
+				);
+				gradient.addColorStop(
+					0.5,
+					`rgba(107, 114, 128, ${finalOpacity * 0.3})`,
+				);
+				gradient.addColorStop(1, 'rgba(107, 114, 128, 0)');
+
+				ctx.fillStyle = gradient;
+				ctx.beginPath();
+				ctx.arc(star.x, star.y, finalSize * 3, 0, Math.PI * 2);
+				ctx.fill();
+
+				// Draw star core
+				ctx.fillStyle = `rgba(156, 163, 175, ${finalOpacity})`;
+				ctx.beginPath();
+				ctx.arc(star.x, star.y, finalSize, 0, Math.PI * 2);
+				ctx.fill();
+			});
+
+			// Draw connections between nearby stars with mouse interaction
+			const maxDistance = 200;
+			stars.forEach((star1, i) => {
+				stars.slice(i + 1).forEach((star2) => {
+					const dx = star1.x - star2.x;
+					const dy = star1.y - star2.y;
+					const distance = Math.sqrt(dx * dx + dy * dy);
+
+					if (distance < maxDistance) {
+						// Check if smoothed mouse is near the line
+						const lineLength = distance;
+						const t = Math.max(
+							0,
+							Math.min(
+								1,
+								((smoothedMouse.x - star1.x) * dx +
+									(smoothedMouse.y - star1.y) * dy) /
+									(lineLength * lineLength),
+							),
+						);
+						const closestX = star1.x + t * dx;
+						const closestY = star1.y + t * dy;
+						const distToMouse = Math.sqrt(
+							Math.pow(smoothedMouse.x - closestX, 2) +
+								Math.pow(smoothedMouse.y - closestY, 2),
+						);
+						// Increased distance for slower, more gradual effect
+						const mouseInfluence = Math.max(
+							0,
+							1 - distToMouse / 400,
+						);
+
+						const opacity =
+							(1 - distance / maxDistance) * 0.15 +
+							mouseInfluence * 0.12;
+						ctx.strokeStyle = `rgba(107, 114, 128, ${opacity})`;
+						ctx.lineWidth = 0.5 + mouseInfluence * 0.5;
+						ctx.beginPath();
+						ctx.moveTo(star1.x, star1.y);
+						ctx.lineTo(star2.x, star2.y);
+						ctx.stroke();
+					}
+				});
+			});
+
+			animationFrameRef.current = requestAnimationFrame(draw);
+		};
+
+		draw();
+
+		return () => {
+			window.removeEventListener('resize', resizeCanvas);
+			if (animationFrameRef.current) {
+				cancelAnimationFrame(animationFrameRef.current);
+			}
+		};
+	}, [mousePos]);
+
+	// Mouse tracking with slow update
+	useEffect(() => {
+		const handleMouseMove = (e: MouseEvent) => {
+			// Update target position (actual mouse position)
+			targetMousePosRef.current = { x: e.clientX, y: e.clientY };
+			// Keep state for dependency (but use refs for smooth interpolation)
+			setMousePos({ x: e.clientX, y: e.clientY });
+		};
+
+		window.addEventListener('mousemove', handleMouseMove);
+		return () => window.removeEventListener('mousemove', handleMouseMove);
+	}, []);
 
 	useEffect(() => {
 		let ctx: gsap.Context | null = null;
@@ -67,103 +249,6 @@ export default function Hero() {
 					);
 				}
 
-				// Abstract background animation
-				if (backgroundAnimationRef.current) {
-					const orbs =
-						backgroundAnimationRef.current.querySelectorAll(
-							'.animated-orb',
-						);
-					const lines =
-						backgroundAnimationRef.current.querySelectorAll(
-							'.animated-line',
-						);
-
-					// Animate floating orbs
-					orbs.forEach((orb, i) => {
-						const duration = 15 + i * 3;
-						const delay = i * 0.5;
-
-						gsap.to(orb, {
-							x: `+=${100 + i * 50}`,
-							y: `+=${80 + i * 40}`,
-							rotation: 360,
-							duration: duration,
-							repeat: -1,
-							yoyo: true,
-							ease: 'sine.inOut',
-							delay: delay,
-						});
-
-						gsap.to(orb, {
-							scale: 1.15,
-							opacity: 0.5,
-							duration: 4 + i,
-							repeat: -1,
-							yoyo: true,
-							ease: 'sine.inOut',
-							delay: delay,
-						});
-					});
-
-					// Animate flowing lines
-					lines.forEach((line, i) => {
-						const duration = 8 + i * 2;
-						const delay = i * 0.3;
-
-						gsap.to(line, {
-							x: `+=${200 + i * 100}`,
-							y: `+=${150 + i * 75}`,
-							rotation: 45 + i * 15,
-							duration: duration,
-							repeat: -1,
-							yoyo: true,
-							ease: 'power1.inOut',
-							delay: delay,
-						});
-
-						gsap.to(line, {
-							opacity: 0.25,
-							scale: 1.08,
-							duration: 3 + i,
-							repeat: -1,
-							yoyo: true,
-							ease: 'sine.inOut',
-							delay: delay,
-						});
-					});
-
-					// Animate grid overlay
-					const gridOverlay =
-						backgroundAnimationRef.current.querySelector(
-							'.animated-grid',
-						);
-					if (gridOverlay) {
-						gsap.to(gridOverlay, {
-							backgroundPosition: '120px 120px',
-							duration: 20,
-							repeat: -1,
-							ease: 'none',
-						});
-					}
-
-					// Animate grid points
-					const gridPoints =
-						backgroundAnimationRef.current.querySelectorAll(
-							'.grid-point',
-						);
-					gridPoints.forEach((point, i) => {
-						gsap.to(point, {
-							opacity: 0.3,
-							scale: 1.4,
-							duration: 2 + (i % 3),
-							repeat: -1,
-							yoyo: true,
-							ease: 'sine.inOut',
-							delay: i * 0.1,
-						});
-					});
-				}
-
 				if (scrollTriggerLoaded && heroRef.current) {
 					gsap.to(heroRef.current, {
 						y: -100,
@@ -195,119 +280,12 @@ export default function Hero() {
 			{/* Subtle Background Gradient */}
 			<div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/95 to-gray-100" />
 
-			{/* Abstract Animated Background */}
-			<div
-				ref={backgroundAnimationRef}
-				className="absolute inset-0 overflow-hidden pointer-events-none"
-			>
-				{/* Floating Gradient Orbs */}
-				<div className="animated-orb absolute top-[20%] left-[10%] w-96 h-96 bg-gray-200/40 rounded-full blur-3xl" />
-				<div className="animated-orb absolute top-[60%] right-[15%] w-80 h-80 bg-yellow-400/30 rounded-full blur-3xl" />
-				<div className="animated-orb absolute bottom-[20%] left-[30%] w-72 h-72 bg-blue-100/30 rounded-full blur-3xl" />
-				<div className="animated-orb absolute top-[40%] right-[40%] w-64 h-64 bg-yellow-300/25 rounded-full blur-3xl" />
-				<div className="animated-orb absolute top-[70%] left-[50%] w-56 h-56 bg-gray-100/35 rounded-full blur-3xl" />
-
-				{/* Flowing Abstract Lines */}
-				<svg
-					className="animated-line absolute top-[15%] left-[5%] w-[600px] h-[2px] opacity-30"
-					viewBox="0 0 600 2"
-					preserveAspectRatio="none"
-				>
-					<path
-						d="M0,1 Q150,0 300,1 T600,1"
-						stroke="rgba(234, 179, 8, 0.3)"
-						strokeWidth="1.5"
-						fill="none"
-						vectorEffect="non-scaling-stroke"
-					/>
-				</svg>
-				<svg
-					className="animated-line absolute bottom-[25%] right-[10%] w-[500px] h-[2px] opacity-20"
-					viewBox="0 0 500 2"
-					preserveAspectRatio="none"
-				>
-					<path
-						d="M0,1 Q125,0 250,1 T500,1"
-						stroke="rgba(107, 114, 128, 0.2)"
-						strokeWidth="1.5"
-						fill="none"
-						vectorEffect="non-scaling-stroke"
-					/>
-				</svg>
-				<svg
-					className="animated-line absolute top-[50%] left-[20%] w-[400px] h-[2px] opacity-15 rotate-45"
-					viewBox="0 0 400 2"
-					preserveAspectRatio="none"
-				>
-					<path
-						d="M0,1 Q100,0 200,1 T400,1"
-						stroke="rgba(156, 163, 175, 0.15)"
-						strokeWidth="1.5"
-						fill="none"
-						vectorEffect="non-scaling-stroke"
-					/>
-				</svg>
-				<svg
-					className="animated-line absolute top-[30%] right-[25%] w-[350px] h-[2px] opacity-12 -rotate-12"
-					viewBox="0 0 350 2"
-					preserveAspectRatio="none"
-				>
-					<path
-						d="M0,1 Q87,0 175,1 T350,1"
-						stroke="rgba(234, 179, 8, 0.2)"
-						strokeWidth="1.5"
-						fill="none"
-						vectorEffect="non-scaling-stroke"
-					/>
-				</svg>
-
-				{/* Grid Pattern */}
-				<div
-					className="absolute inset-0 opacity-[0.06]"
-					style={{
-						backgroundImage: `
-                linear-gradient(rgba(156, 163, 175, 0.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(156, 163, 175, 0.15) 1px, transparent 1px)
-              `,
-						backgroundSize: '60px 60px',
-					}}
-				/>
-
-				{/* Animated Grid Overlay */}
-				<div
-					className="animated-grid absolute inset-0 opacity-[0.03]"
-					style={{
-						backgroundImage: `
-                linear-gradient(rgba(107, 114, 128, 0.2) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(107, 114, 128, 0.2) 1px, transparent 1px)
-              `,
-						backgroundSize: '120px 120px',
-					}}
-				/>
-
-				{/* Grid Intersection Points */}
-				<div className="absolute inset-0">
-					{[...Array(20)].map((_, i) => {
-						const x = (i % 5) * 25;
-						const y = Math.floor(i / 5) * 20;
-						const isYellow = i % 4 === 0;
-						return (
-							<div
-								key={i}
-								className={`grid-point absolute w-1 h-1 rounded-full ${
-									isYellow
-										? 'bg-yellow-400/25'
-										: 'bg-gray-400/20'
-								}`}
-								style={{
-									left: `${x}%`,
-									top: `${y}%`,
-								}}
-							/>
-						);
-					})}
-				</div>
-			</div>
+			{/* Interactive Constellation Canvas */}
+			<canvas
+				ref={canvasRef}
+				className="absolute inset-0 pointer-events-none"
+				style={{ zIndex: 1 }}
+			/>
 
 			<div className="container mx-auto px-6 lg:px-12 relative z-10 text-center">
 				<h1
